@@ -7,7 +7,7 @@ public class Veiculo {
     private String chassi;
     private int anoFabricacao;
     private String cor;
-    public static final int limiteAnoFabricacao = 2016;
+    public static final int LIMITE_ANO_FABRICACAO = 2016;
 
     public Veiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao){
 
@@ -23,7 +23,7 @@ public class Veiculo {
 
     public boolean anoEhValido(int anoFabricacao){
 
-        if(anoFabricacao < limiteAnoFabricacao)
+        if(anoFabricacao < LIMITE_ANO_FABRICACAO)
             return false;
         return true;
     }

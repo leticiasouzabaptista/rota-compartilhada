@@ -25,7 +25,7 @@ public class Endereco {
         this.pais = pais;
     }
 
-    public boolean tipoLogadouroEhValido(String tipoLogadouro){
+    public static boolean tipoLogadouroEhValido(String tipoLogadouro){
         
         switch(tipoLogadouro){
 
