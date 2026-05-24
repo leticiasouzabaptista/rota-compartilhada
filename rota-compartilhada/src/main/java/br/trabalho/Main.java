@@ -2,6 +2,10 @@ package br.trabalho;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        
+        DadosSistema sistema = new DadosSistema();
+        Menu menu = new Menu(sistema);
+
+        menu.executa();
     }
 }
