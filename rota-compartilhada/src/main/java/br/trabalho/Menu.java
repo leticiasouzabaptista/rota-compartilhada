@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Menu {
 
-    //private char opcao;
     private int opcao;
     private DadosSistema sistema;
 
@@ -11,7 +10,7 @@ public class Menu {
         this.sistema = sistema;
     }
 
-    public void exibe(){
+    private void exibe(){
 
         System.out.println("1) Cadastrar Motorista\n2) Exibir Motoristas Cadastrados\n3) Exibir Dados de um Motorista\n4) Deletar um Motorista\n5) Editar Dados de um Motorista\n6) Cadastrar um Passageiro\n7) Exibir Passageiros Cadastrados\n8) Exibir Dados de um Passageiro\n9) Deletar um Passageiro\n10) Editar Dados de um Passageiro\n11) Cadastrar uma Carona\n12) Agendar uma carona\n13) Exibir Agendamentos de Carona\n14) Atualizar Agendamento de Caronas\n15) Verificar status de uma Carona\n16) Exibir Caronas em Andamento\n17) Exibir Caronas Finalizadas\n18) Finalizar");
     }
@@ -22,33 +21,29 @@ public class Menu {
         System.out.println("Digite a funcionalidade que deseja acessar: ");
         exibe();
         opcao = scanner.nextInt();
-        //opcao = scanner.next().charAt(0);
+        scanner.nextLine();
 
         while(opcao != 18){
 
             switch (opcao) {
                 case 1:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.cadastrarMotorista();
-                    exibe();
-                    opcao = scanner.nextInt();
+                    System.out.println("\nPara voltar ao menu digite 0.");
+                    sistema.cadastrarMotoritsa();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 2:{
-                    System.out.println("Para voltar ao menu digite 0.");
+                    System.out.println("\nPara voltar ao menu digite 0.");
                     sistema.exibirMotoristas();
+                    //sistema.exibirMotoristas();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                     
                 case 3:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    System.out.println("Digite o cpf do motorista: "); //ou então deixar isso dentro de exibirMotorista()
-                    String cpf = scanner.next();
-                    sistema.exibirMotorista(cpf);
+                    sistema.exibirMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
@@ -123,7 +118,7 @@ public class Menu {
                     sistema.exibirListaFinalizadas();
                     break;
                 }
-                default:{
+               default:{
                     System.out.println("Opção inválida, digite novamente: ");
                     opcao = scanner.nextInt();
                     break;
@@ -133,6 +128,7 @@ public class Menu {
             System.out.println("Digite a funcionalidade que deseja acessar: ");
             exibe();
             opcao = scanner.nextInt();
+            scanner.nextLine();
             //opcao = scanner.next().charAt(0);
         }
 
