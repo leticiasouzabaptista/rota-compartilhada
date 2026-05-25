@@ -1,25 +1,54 @@
 package br.trabalho;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class DadosSistema {
-    private List <Motorista> motoristas;
-    private List <Passageiro> passageiros;
+    private Map <String, Motorista> motoristas;
+    /* private List <Motorista> motoristas; */
+    private Map <String, Passageiro> passageiros;
     private List <Carona> caronaAndamento;
     private List <Carona> caronasFinalizadas;
 
     private Scanner scanner;
 
     public DadosSistema(){
-        motoristas = new ArrayList<>();
-        passageiros = new ArrayList<>();
+        motoristas = new HashMap<>();
+        passageiros = new HashMap<>();
         caronaAndamento = new ArrayList<>();
         caronasFinalizadas = new ArrayList<>();
 
         scanner = new Scanner(System.in);
     }
+
+   /*  private Endereco insereEnderecoCdastro(){
+
+        System.out.println("\nEndereco");
+        System.out.print("Tipo do Logadouro: ");
+        String tipoLogadouro = scanner.nextLine();
+        System.out.print("Logadouro: ");
+        String logadouro = scanner.nextLine();
+        System.out.print("Nº: ");
+        int numero = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Bairro: ");
+        String bairro = scanner.nextLine();
+        System.out.print("CEP: ");
+        String cep = scanner.nextLine();
+        System.out.print("Cidade: ");
+        String cidade = scanner.nextLine();
+        System.out.print("Estado: ");
+        String estado = scanner.nextLine();
+        System.out.print("Pais: ");
+        String pais = scanner.nextLine();
+
+
+    } */
 
     public void cadastrarMotoritsa(){
         
@@ -99,7 +128,8 @@ public class DadosSistema {
         }
         
         Motorista motorista = new Motorista(nome, cpf, endereco, veiculo);
-        motoristas.add(motorista);
+        motoristas.put(cpf,motorista);
+        /* motoristas.put(cpf,motorista); */
 
         System.out.println("\nMotorista cadastrado com sucesso!");
     }
@@ -110,7 +140,12 @@ public class DadosSistema {
         String cpf = scanner.nextLine();
         System.out.print("\n");
         
-        boolean cadastrado = false;
+        if(motoristas.containsKey(cpf))
+            motoristas.get(cpf).exibeDados();
+        else
+            System.out.println("Motorista não cadastrado.");
+        
+        /* boolean cadastrado = false;
         for(Motorista motorista: motoristas){
             if(motorista.getCpf().equals(cpf)){
                 motorista.exibeDados();
@@ -119,12 +154,12 @@ public class DadosSistema {
             }
         }
         if(!cadastrado)
-            System.out.println("Motorista não cadastrado.");
+            System.out.println("Motorista não cadastrado."); */
     }
 
     public void exibirMotoristas(){
         System.out.println("\nMotoristas Cadastrados: ");
-        for(Motorista motorista: motoristas){
+        for(Motorista motorista: motoristas.values()){
             System.out.println(motorista.getNome());
             System.out.println("\n");
         }
@@ -133,7 +168,8 @@ public class DadosSistema {
     public void removeMotorista(){
         System.out.println("CPF do motorista: ");
         String cpf = scanner.nextLine();
-        motoristas.removeIf(motorista->motorista.getCpf().equals(cpf));
+        //motoristas.removeIf(motorista->motorista.getCpf().equals(cpf));
+        motoristas.remove(cpf);
     }
 
     public void editaMotorista(){
@@ -145,19 +181,21 @@ public class DadosSistema {
         scanner.nextLine();
 
         if(op == 1){
-            for(Motorista motorista: motoristas){
+            motoristas.get(cpf).setEndereco();
+            /* for(Motorista motorista: motoristas){
                 if(motorista.getCpf().equals(cpf)){
                     motorista.setEndereco();
                 }
-            }
+            } */
         }
 
         if(op == 2){
-            for(Motorista motorista: motoristas){
+            motoristas.get(cpf).setVeiculo();
+            /* for(Motorista motorista: motoristas){
                 if(motorista.getCpf().equals(cpf)){
                     motorista.setVeiculo();
                 }
-            }
+            } */
         }
 
     public void cadastrarPassageiro(){
@@ -208,14 +246,14 @@ public class DadosSistema {
         }
 
         Passageiro passageiro = new Passageiro(nome, cpf, endereco);
-        passageiros.add(passageiro);
+        passageiros.put(cpf,passageiro);
         System.out.println("\nPassageiro cadastrado com sucesso!");
     }
 
     public void exibirPassageiros(){
 
         System.out.println("Passageiros Cadastrados");
-        for(Passageiro passageiro: passageiros){
+        for(Passageiro passageiro: passageiros.values()){
             System.out.println(passageiro.getNome() + "\n");
         }
     }
@@ -226,7 +264,12 @@ public class DadosSistema {
         String cpf = scanner.nextLine();
         System.out.print("\n");
         
-        boolean cadastrado = false;
+        if(passageiros.containsKey(cpf))
+            passageiros.get(cpf).exibeDados();
+        else
+            System.out.println("Passageiro não cadastrado."); */
+
+        /*  boolean cadastrado = false;
         for(Passageiro passageiro: passageiros){
             if(passageiro.getCpf().equals(cpf)){
                 passageiro.exibeDados();
@@ -235,6 +278,70 @@ public class DadosSistema {
             }
         }
         if(!cadastrado)
-            System.out.println("Passageiro não cadastrado.");
+            System.out.println("Passageiro não cadastrado."); */
     }
+
+    public void removePassageiro(){
+        System.out.println("CPF do Passageiro: ");
+        String cpf = scanner.nextLine();
+        passageiros.remove(cpf);
+        //passageiros.removeIf(passageiros->passageiros.getCpf().equals(cpf));
+    }
+
+    public void editaPassageiro(){
+
+        System.out.println("CPF do Passageiro: ");
+        String cpf = scanner.nextLine();
+
+        passageiros.get(cpf).setEndereco();
+        /* for(Passageiro passageiro: passageiros){
+                if(passageiro.getCpf().equals(cpf)){
+                    passageiro.setEndereco();
+                }
+        } */
+    }
+
+    public void cadastraCarona(){
+
+        System.out.print("CPF do passageiro: ");
+        String cpfPassageiro = scanner.nextLine();
+
+        System.out.println("\nOrigem da viagem");
+        System.out.print("Cidade: ");
+        String cidadeO = scanner.nextLine();
+        System.out.print("Logadouro: ");
+        String logadouroO = scanner.nextLine();
+        System.out.print("Numero: ");
+        int numeroO = scanner.nextInt();
+        System.out.print("Bairro: ");
+        String bairroO = scanner.nextLine();
+        Endereco origem = new Endereco(cidadeO, logadouroO, numeroO, bairroO);
+        LocalDateTime inicio = LocalDateTime.now();
+
+        System.out.println("\nDestino da viagem");
+        System.out.print("Cidade: ");
+        String cidadeD = scanner.nextLine();
+        System.out.print("Logadouro: ");
+        String logadouroD = scanner.nextLine();
+        System.out.print("Numero: ");
+        int numeroD = scanner.nextInt();
+        System.out.print("Bairro: ");
+        String bairroD = scanner.nextLine();
+        Endereco destino = new Endereco(cidadeD, logadouroD, numeroD, bairroD);
+
+        String cpfMotorista;        
+        for(Motorista motorista: motoristas.values()){
+            if(motorista.getStatus()){
+                cpfMotorista = motorista.getCpf();
+                break;
+            }
+        }
+        
+        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio);
+        caronas.add(carona);
+
+        System.out.println("Carona cadastrada com sucesso!");
+    }
+
+
 }
