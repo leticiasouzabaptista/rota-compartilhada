@@ -25,6 +25,24 @@ public class Endereco {
         this.pais = pais;
     }
 
+    public void exibeEndereco(){
+        System.out.printf("Endereco: %s %s, %d - %s, %s, %s, %s, %s\n", tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
+    }
+
+    public void setEndereco(String tipoLogadouro, String logadouro, int numero, String bairro, String cidade, String estado, String cep, String pais){
+
+        if(!Endereco.tipoLogadouroEhValido(tipoLogadouro))
+            throw new IllegalArgumentException("Tipo de Logadouro inválido.");
+        
+        this.tipoLogadouro = tipoLogadouro;
+        this.logadouro = logadouro;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+        this.pais = pais;
+    }
+
     public static boolean tipoLogadouroEhValido(String tipoLogadouro){
         
         switch(tipoLogadouro){
@@ -103,16 +121,5 @@ public class Endereco {
                     return false;
                 }  
             }*/
-    }
-
-    public void setEndereco(String tipoLogadouro, String logadouro, int numero, String bairro, String cidade, String estado, String cep, String pais){
-
-        this.tipoLogadouro = tipoLogadouro;
-        this.logadouro = logadouro;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.pais = pais;
     }
 }
