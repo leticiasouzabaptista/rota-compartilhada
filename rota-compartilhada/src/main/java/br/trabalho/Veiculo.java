@@ -28,8 +28,15 @@ public class Veiculo {
         return true;
     }
 
+    public void exibeVeiculo(){
+        System.out.printf("Veiculo: %s, %s, %s, %s, %d\n", modelo, placa, chassi, cor, anoFabricacao);
+    }
+
     public void setVeiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao){
 
+        if(!anoEhValido(anoFabricacao))
+            throw new IllegalArgumentException("Ano de fabricação não aceito.");
+        
         this.anoFabricacao = anoFabricacao;
         this.modelo = modelo;
         this.placa = placa;
