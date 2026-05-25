@@ -25,8 +25,16 @@ public class Endereco {
         this.pais = pais;
     }
 
+    public Endereco(String cidade, String logadouro, int numero, String bairro){
+        this(null, logadouro, numero, bairro, cidade, null, null, null);
+    }
+
     public void exibeEndereco(){
         System.out.printf("Endereco: %s %s, %d - %s, %s, %s, %s, %s\n", tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
+    }
+
+    public void exibeEnderecoViagem(String tipo){
+        System.out.printf("Origem: %s %s, %d - %s\n", cidade, logadouro, numero, bairro);
     }
 
     public void setEndereco(String tipoLogadouro, String logadouro, int numero, String bairro, String cidade, String estado, String cep, String pais){

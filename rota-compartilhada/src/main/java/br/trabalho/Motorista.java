@@ -8,6 +8,7 @@ public class Motorista {
     private String cpf;
     private Endereco endereco;
     private Veiculo veiculo;
+    private boolean status;
 
     private Scanner scanner;
 
@@ -27,6 +28,10 @@ public class Motorista {
 
     public String getNome(){
         return nome;
+    }
+
+    public boolean getStatus(){
+        return status;
     }
 
     public void exibeDados(){

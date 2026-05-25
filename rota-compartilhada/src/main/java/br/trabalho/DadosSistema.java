@@ -12,16 +12,17 @@ public class DadosSistema {
     private Map <String, Motorista> motoristas;
     /* private List <Motorista> motoristas; */
     private Map <String, Passageiro> passageiros;
-    private List <Carona> caronaAndamento;
-    private List <Carona> caronasFinalizadas;
+    private Map <Float, Carona> caronaAndamento;
+    private Map <Float, Carona> caronasAgendadas;
+    private Map <Float, Carona> caronasFinalizadas;
 
     private Scanner scanner;
 
     public DadosSistema(){
         motoristas = new HashMap<>();
         passageiros = new HashMap<>();
-        caronaAndamento = new ArrayList<>();
-        caronasFinalizadas = new ArrayList<>();
+        caronaAndamento = new HashMap<>();
+        caronasFinalizadas = new HashMap<>();
 
         scanner = new Scanner(System.in);
     }
@@ -197,6 +198,7 @@ public class DadosSistema {
                 }
             } */
         }
+    }
 
     public void cadastrarPassageiro(){
 
@@ -301,34 +303,43 @@ public class DadosSistema {
         } */
     }
 
+    public Endereco insereEnderecoViagem(String tipo){
+
+        System.out.println(tipo);
+        System.out.print("Cidade: ");
+        String cidade = scanner.nextLine();
+        System.out.print("Logadouro: ");
+        String logadouro = scanner.nextLine();
+        System.out.print("Numero: ");
+        int numero = scanner.nextInt();
+        System.out.print("Bairro: ");
+        String bairro = scanner.nextLine();
+
+        return new Endereco(cidade, logadouro, numero, bairro);
+    }
+
     public void cadastraCarona(){
 
-        System.out.print("CPF do passageiro: ");
+        System.out.print("=== Cadastrar Carona ===");
+        System.out.print("\nCPF do passageiro: ");
         String cpfPassageiro = scanner.nextLine();
 
-        System.out.println("\nOrigem da viagem");
-        System.out.print("Cidade: ");
-        String cidadeO = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouroO = scanner.nextLine();
-        System.out.print("Numero: ");
-        int numeroO = scanner.nextInt();
-        System.out.print("Bairro: ");
-        String bairroO = scanner.nextLine();
-        Endereco origem = new Endereco(cidadeO, logadouroO, numeroO, bairroO);
+        /* for(Carona carona: caronasAgendadas.values()){
+            if(carona.getCpfPassageiro().equals(cpfPassageiro))
+                if()
+        }
+ */
+        for(Carona carona: caronaAndamento.values()){
+            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
+                System.out.println("Erro: passageiro já esta em carona.");
+                break;
+            }
+        }
+
+        Endereco origem = insereEnderecoViagem("\nOrigem da Viagem");
         LocalDateTime inicio = LocalDateTime.now();
-
-        System.out.println("\nDestino da viagem");
-        System.out.print("Cidade: ");
-        String cidadeD = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouroD = scanner.nextLine();
-        System.out.print("Numero: ");
-        int numeroD = scanner.nextInt();
-        System.out.print("Bairro: ");
-        String bairroD = scanner.nextLine();
-        Endereco destino = new Endereco(cidadeD, logadouroD, numeroD, bairroD);
-
+        Endereco destino = insereEnderecoViagem("\nDestino da Viagem");
+        
         String cpfMotorista;        
         for(Motorista motorista: motoristas.values()){
             if(motorista.getStatus()){
@@ -337,11 +348,89 @@ public class DadosSistema {
             }
         }
         
-        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio);
+        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio, "Em andamento");
         caronas.add(carona);
 
         System.out.println("Carona cadastrada com sucesso!");
     }
 
+    public void agendaCarona(){
 
+        System.out.print("=== Agendar Carona ===");
+        System.out.print("\nCPF do passageiro: ");
+        String cpfPassageiro = scanner.nextLine();
+
+        Endereco origem = insereEnderecoViagem("\nOrigem da Viagem");
+        System.out.print("Dia: ");
+        int dia = scanner.nextInt();
+        System.out.print("Mes");
+        int mes = scanner.nextInt();
+        System.out.print("Ano: ");
+        int ano = scanner.nextInt();
+        System.out.print("\nHora: ");
+        int hora = scanner.nextInt();
+        System.out.print("Minuto: ");
+        int minuto = scanner.nextInt();
+        LocalDateTime inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
+        Endereco destino = insereEnderecoViagem("\nDestino da Viagem");
+        
+        String cpfMotorista;        
+        for(Motorista motorista: motoristas.values()){
+            if(motorista.getStatus()){
+                cpfMotorista = motorista.getCpf();
+                break;
+            }
+        }
+        
+        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio, "Aguardando Inicio");
+        caronasAgendadas.add(carona);
+
+        System.out.println("Carona cadastrada com sucesso!");
+    }
+
+    public void exibeAgendamentosCaronas(){
+
+        for(Carona carona: caronasAgendadas){
+            System.out.printf("Carona de %s\n", carona.getNomePassageiro());
+            System.out.println("Origem: " + carona.exibeOrigem());
+            System.out.println("Destino: " + carona.exibeDestino());
+            System.out.println("Inicio: " + carona.exibeInicio());
+            System.out.println("Previsão de encerramento: " + carona.exibeFim() + "\n");
+        }
+    }
+
+    public void exibeStatusCarona(){
+        System.out.println("\nCodigo da carona: ");
+        float codigo = scanner.nextFloat();
+        if(caronasAgendadas.containsKey(codigo))
+            System.out.println("Status da carona: " + caronaAndamento.get(codigo).getStatus());
+        if(caronaAndamento.containsKey(codigo))
+            System.out.println("Status da carona: " + caronaAndamento.get(codigo).getStatus());
+        if(caronasFinalizadas.containsKey(codigo))
+            System.out.println("Status da carona: " + caronaAndamento.get(codigo).getStatus());
+    }
+
+    public void exibeCaronasAndamento(){
+
+        System.out.println("=== Caronas em Andamento ===");
+        for(Carona carona: caronaAndamento.values()){
+            System.out.printf("\nCarona de %s\n", carona.getNomePassageiro());
+            System.out.println("Origem: " + carona.exibeOrigem());
+            System.out.println("Destino: " + carona.exibeDestino());
+            System.out.println("Inicio: " + carona.exibeInicio());
+            System.out.println("Previsão de encerramento: " + carona.exibeFim() + "\n");
+        }
+    }
+
+    public void exibeCaronasFinalizadas(){
+        System.out.print("=== Caronas Finalizadas ===");
+        for(Carona carona: caronasFinalizadas.values()){
+            System.out.printf("\nCarona de %s\n", carona.getNomePassageiro());
+            System.out.println("Origem: " + carona.exibeOrigem());
+            System.out.println("Destino: " + carona.exibeDestino());
+            System.out.println("Inicio: " + carona.exibeInicio());
+            System.out.println("Fim: " + carona.exibeFim() + "\n");
+        }
+    }
 }
+

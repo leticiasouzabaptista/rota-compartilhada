@@ -110,12 +110,12 @@ public class Menu {
                 }
                 case 16:{
                     System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibirListaAndamento();
+                    sistema.exibeCaronasAndamento();
                     break;
                 }
                 case 17:{
                     System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibirListaFinalizadas();
+                    sistema.exibeCaronasFinalizadas();
                     break;
                 }
                default:{
