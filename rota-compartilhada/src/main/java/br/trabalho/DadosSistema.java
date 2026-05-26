@@ -222,7 +222,7 @@ public class DadosSistema {
             }
         }
 
-        for(Carona carona : caronasAgendadas){
+        for(Carona carona : caronasAgendadas.values()){
             if(carona.getCpfPassageiro().equals(cpfPassageiro)){
                 if(temConflito(inicio, fim, carona.getInicio(), carona.getFim()))
                     return false;
@@ -319,7 +319,7 @@ public class DadosSistema {
 
     public void exibeAgendamentosCaronas(){
         System.out.println("=== Caronas Agendadas ===\n");
-        for(Carona carona: caronasAgendadas){
+        for(Carona carona: caronasAgendadas.values()){
             System.out.printf("Carona de %s\n", carona.getNomePassageiro());
             System.out.println("Origem: " + carona.exibeOrigem());
             System.out.println("Destino: " + carona.exibeDestino());
