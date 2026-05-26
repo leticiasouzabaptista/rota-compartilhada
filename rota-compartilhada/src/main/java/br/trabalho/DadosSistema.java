@@ -198,7 +198,7 @@ public class DadosSistema {
         passageiros.get(cpf).setEndereco();
     }
 
-    public Endereco insereEnderecoViagem(String tipo){
+    private Endereco insereEnderecoViagem(String tipo){
 
         System.out.println(tipo);
         System.out.print("Cidade: ");
@@ -213,35 +213,51 @@ public class DadosSistema {
         return new Endereco(cidade, logadouro, numero, bairro);
     }
 
+    private boolean passageiroDisponivel(String cpfPassageiro, LocalDateTime inicio, LocalDateTime fim){
+
+        for(Carona carona : caronaAndamento.values()){
+            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
+                System.out.println(carona.getNomePassageiro() + " já esta em carona.");
+                return false;
+            }
+        }
+
+        for(Carona carona : caronasAgendadas){
+            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
+                if(temConflito(inicio, fim, carona.getInicio(), carona.getFim()))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean temConflito(LocalDateTime inicio1, LocalDateTime fim1, LocalDateTime inicio2,  LocalDateTime fim2){
+        return inicio1.isBefore(fim2) && fim1.isAfter(inicio2);
+    }
+
     public void cadastraCarona(){
 
         System.out.print("=== Cadastrar Carona ===\n");
         System.out.print("CPF do passageiro: ");
         String cpfPassageiro = scanner.nextLine();
-
-        for(Carona carona: caronaAndamento.values()){
-            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
-                System.out.println(carona.getNomePassageiro() + " já esta em carona.");
-                return;
-            }
+        if(!passageiros.containsKey(cpfPassageiro)){
+            System.out.println("Passageiro não cadastrado.");
+            return;
         }
 
         Endereco origem = insereEnderecoViagem("\nOrigem da Viagem");
-        LocalDateTime inicio = LocalDateTime.now();
         Endereco destino = insereEnderecoViagem("\nDestino da Viagem");
+
+        LocalDateTime inicio = LocalDateTime.now();
         Random random = new Random();
         int duracao = random.nextInt(2)+1;
         LocalDateTime fim = inicio.plusHours(duracao);
 
-        for(Carona carona: caronasAgendadas.values()){
-            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
-                if(inicio.isBefore(carona.getFim()) && fim.isAfter(carona.getInicio())){
-                    System.out.println(carona.getNomePassageiro() + " tem conflito de viagens no mesmo intervalo de tempo.");
-                    return;
-                }
-            }
-
+        if(!passageiroDisponivel(cpfPassageiro, inicio, fim)){
+            System.out.println("Passageiro possui conflito de horário.");
+            return;
         }
+    }
         
         String cpfMotorista = null;        
         for(Motorista motorista: motoristas.values()){
@@ -279,6 +295,12 @@ public class DadosSistema {
         System.out.print("Minuto: ");
         int minuto = scanner.nextInt();
         LocalDateTime inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
+        LocalDateTime agora = LocalDateTime.now();
+        if(inicio.isBefore(agora) || inicio.isEqual(agora)){
+            System.out.println("Carona agendada para o momento atual.");
+            return;
+        }
+
         Endereco destino = insereEnderecoViagem("\nDestino da Viagem");
         
         String cpfMotorista;        
@@ -289,8 +311,8 @@ public class DadosSistema {
             }
         }
         
-        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio, "Aguardando Inicio");
-        caronasAgendadas.add(carona);
+        Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio, fim, "Aguardando Inicio");
+        caronasAgendadas.put(carona.getCodigo(),carona);
 
         System.out.println("Carona cadastrada com sucesso!");
     }
