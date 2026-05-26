@@ -37,75 +37,72 @@ public class Motorista {
     public void exibeDados(){
         System.out.printf("Nome: %s\n", nome);
         System.out.printf("Cpf: %s\n", cpf);
-        endereco.exibeEndereco();
+        endereco.exibeEnderecoCadastrado();
         veiculo.exibeVeiculo();
     }
 
     public void setEndereco(){
        
-        System.out.println("\nEndereco");
-        System.out.print("Tipo do Logadouro: ");
-        String tipoLogadouro = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouro = scanner.nextLine();
-        System.out.print("Nº: ");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Bairro: ");
-        String bairro = scanner.nextLine();
-        System.out.print("CEP: ");
-        String cep = scanner.nextLine();
-        System.out.print("Cidade: ");
-        String cidade = scanner.nextLine();
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("Pais: ");
-        String pais = scanner.nextLine();
-
         boolean alteracaoValida = false;
         while(!alteracaoValida){
             try{
+                System.out.println("\nNovo Endereco");
+                System.out.print("Tipo do Logadouro: ");
+                String tipoLogadouro = scanner.nextLine();
+                System.out.print("Logadouro: ");
+                String logadouro = scanner.nextLine();
+                System.out.print("Nº: ");
+                int numero = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("Bairro: ");
+                String bairro = scanner.nextLine();
+                System.out.print("CEP: ");
+                String cep = scanner.nextLine();
+                System.out.print("Cidade: ");
+                String cidade = scanner.nextLine();
+                System.out.print("Estado: ");
+                String estado = scanner.nextLine();
+                System.out.print("Pais: ");
+                String pais = scanner.nextLine();
+
                 endereco.setEndereco(tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
+                System.out.println("Endereço alterado com sucesso!");
                 alteracaoValida = true;
             }
             catch(IllegalArgumentException e){
-                System.out.println("Erro ao alterar endereco.");
+                System.out.println("\nErro ao alterar endereco.\n");
                 System.out.println(e.getMessage());
-                System.out.println("Digite novamente o tipo de Logadouro: ");
-                tipoLogadouro = scanner.nextLine();
+                System.out.println("Tente novamente:\n ");
             }
         }
     }
 
     public void setVeiculo(){
-        
-        System.out.println("\nVeiculo");
-        System.out.print("Modelo: ");
-        String modelo = scanner.nextLine();
-        System.out.print("Placa: ");
-        String placa = scanner.nextLine();
-        System.out.print("Chassi: ");
-        String chassi = scanner.nextLine();
-        System.out.print("Ano de Fabricação: ");
-        int anoFabricacao = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Cor: ");
-        String cor = scanner.nextLine();
 
         boolean alteracaoValida = false;
         while(!alteracaoValida){
             try{
+                System.out.println("\nNovo veiculo");
+                System.out.print("Modelo: ");
+                String modelo = scanner.nextLine();
+                System.out.print("Placa: ");
+                String placa = scanner.nextLine();
+                System.out.print("Chassi: ");
+                String chassi = scanner.nextLine();
+                System.out.print("Ano de Fabricação: ");
+                int anoFabricacao = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("Cor: ");
+                String cor = scanner.nextLine();
                 veiculo.setVeiculo(modelo, placa, chassi, cor, anoFabricacao);
+                System.out.println("Veículo alterado com sucesso!");
                 alteracaoValida = true;
             }
             catch(IllegalArgumentException e){
-                System.out.println("Erro ao alterar veiculo.");
+                System.out.println("\nErro ao alterar veiculo.\n");
                 System.out.println(e.getMessage());
-                System.out.println("Digite novamente o ano de fabricação: ");
-                anoFabricacao = scanner.nextInt();
-                scanner.nextLine();
+                System.out.println("Tente novamente:\n");
             }
         }   
     }
-
 }

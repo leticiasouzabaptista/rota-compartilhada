@@ -10,11 +10,10 @@ import java.time.LocalDateTime;
 
 public class DadosSistema {
     private Map <String, Motorista> motoristas;
-    /* private List <Motorista> motoristas; */
     private Map <String, Passageiro> passageiros;
-    private Map <Float, Carona> caronaAndamento;
-    private Map <Float, Carona> caronasAgendadas;
-    private Map <Float, Carona> caronasFinalizadas;
+    private Map <Integer, Carona> caronaAndamento;
+    private Map <Integer, Carona> caronasAgendadas;
+    private Map <Integer, Carona> caronasFinalizadas;
 
     private Scanner scanner;
 
@@ -27,29 +26,43 @@ public class DadosSistema {
         scanner = new Scanner(System.in);
     }
 
-   /*  private Endereco insereEnderecoCdastro(){
 
-        System.out.println("\nEndereco");
-        System.out.print("Tipo do Logadouro: ");
-        String tipoLogadouro = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouro = scanner.nextLine();
-        System.out.print("Nº: ");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Bairro: ");
-        String bairro = scanner.nextLine();
-        System.out.print("CEP: ");
-        String cep = scanner.nextLine();
-        System.out.print("Cidade: ");
-        String cidade = scanner.nextLine();
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("Pais: ");
-        String pais = scanner.nextLine();
+    private Endereco lerEnderecoCadastro() {
 
+        boolean enderecoEhvalido = false;
+        while(!enderecoEhvalido){
 
-    } */
+            try {
+                System.out.println("\nEndereco");
+                System.out.print("Tipo do Logradouro: ");
+                String tipoLogradouro = scanner.nextLine();
+                System.out.print("Logradouro: ");
+                String logradouro = scanner.nextLine();
+                System.out.print("Nº: ");
+                int numero = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("Bairro: ");
+                String bairro = scanner.nextLine();
+                System.out.print("CEP: ");
+                String cep = scanner.nextLine();
+                System.out.print("Cidade: ");
+                String cidade = scanner.nextLine();
+                System.out.print("Estado: ");
+                String estado = scanner.nextLine();
+                System.out.print("Pais: ");
+                String pais = scanner.nextLine();
+
+                Endereco endereco = new Endereco(tipoLogradouro, logradouro, numero, bairro, cidade, estado, cep, pais);
+                enderecoEhvalido = true;
+                return endereco;
+            }
+            catch(IllegalArgumentException e){
+                System.out.println("\nEndereço não aceito.");
+                System.out.println(e.getMessage());
+                System.out.println("\nTente novamente:\n");
+            }
+        }
+    }
 
     public void cadastrarMotoritsa(){
         
@@ -60,83 +73,43 @@ public class DadosSistema {
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
 
-        System.out.println("\nEndereco");
-        System.out.print("Tipo do Logadouro: ");
-        String tipoLogadouro = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouro = scanner.nextLine();
-        System.out.print("Nº: ");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Bairro: ");
-        String bairro = scanner.nextLine();
-        System.out.print("CEP: ");
-        String cep = scanner.nextLine();
-        System.out.print("Cidade: ");
-        String cidade = scanner.nextLine();
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("Pais: ");
-        String pais = scanner.nextLine();
+        Endereco endereco = lerEnderecoCadastro();
 
-        boolean criadoEnd = false;
-        Endereco endereco = null;
-        while(!criadoEnd){
-
-            try{
-                endereco = new Endereco(tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
-                criadoEnd = true;
-            }
-            catch(IllegalArgumentException e){
-                System.out.println("\nEndereço não aceito.");
-                System.out.println(e.getMessage());
-
-                System.out.println("Digite novamente o tipo de Logadouro: ");
-                tipoLogadouro = scanner.nextLine();
-                //System.out.println("Digite novamente o endereço");
-                //insereDadosEndereco();
-            }
-        }
-
-        System.out.println("\nVeiculo");
-        System.out.print("Modelo: ");
-        String modelo = scanner.nextLine();
-        System.out.print("Placa: ");
-        String placa = scanner.nextLine();
-        System.out.print("Chassi: ");
-        String chassi = scanner.nextLine();
-        System.out.print("Ano de Fabricação: ");
-        int anoFabricacao = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Cor: ");
-        String cor = scanner.nextLine();
-
-        boolean criadoVei = false;
+        boolean veiculoEhValido = false;
         Veiculo veiculo = null;
-        while(!criadoVei){
+        while(!veiculoEhValido){
 
             try{
+                System.out.println("\nVeiculo");
+                System.out.print("Modelo: ");
+                String modelo = scanner.nextLine();
+                System.out.print("Placa: ");
+                String placa = scanner.nextLine();
+                System.out.print("Chassi: ");
+                String chassi = scanner.nextLine();
+                System.out.print("Ano de Fabricação: ");
+                int anoFabricacao = scanner.nextInt();
+                scanner.nextLine();
+                System.out.print("Cor: ");
+                String cor = scanner.nextLine();
                 veiculo = new Veiculo(modelo, placa, chassi, cor,  anoFabricacao);
-                criadoVei = true;
+                veiculoEhValido = true;
             }
             catch(IllegalArgumentException e){
                 System.out.println("\nVeículo não aceito.");
                 System.out.println(e.getMessage());
-
-                System.out.println("Digite novamente o ano de Fabricação: ");
-                anoFabricacao = scanner.nextInt();
+                System.out.println("\nTente novamente:\n");
             }
         }
         
         Motorista motorista = new Motorista(nome, cpf, endereco, veiculo);
         motoristas.put(cpf,motorista);
-        /* motoristas.put(cpf,motorista); */
 
         System.out.println("\nMotorista cadastrado com sucesso!");
     }
 
     public void exibirMotorista(){
-        
+        System.out.println("=== Exibe Dados de um Motorista ===");
         System.out.print("\nCPF do motorista: ");       
         String cpf = scanner.nextLine();
         System.out.print("\n");
@@ -145,162 +118,84 @@ public class DadosSistema {
             motoristas.get(cpf).exibeDados();
         else
             System.out.println("Motorista não cadastrado.");
-        
-        /* boolean cadastrado = false;
-        for(Motorista motorista: motoristas){
-            if(motorista.getCpf().equals(cpf)){
-                motorista.exibeDados();
-                cadastrado = true;
-                break;
-            }
-        }
-        if(!cadastrado)
-            System.out.println("Motorista não cadastrado."); */
     }
 
     public void exibirMotoristas(){
-        System.out.println("\nMotoristas Cadastrados: ");
+        System.out.println("\n=== Motoristas Cadastrados ===");
         for(Motorista motorista: motoristas.values()){
             System.out.println(motorista.getNome());
-            System.out.println("\n");
         }
     }
 
     public void removeMotorista(){
+        System.out.println("=== Remover Motorista ===");
         System.out.println("CPF do motorista: ");
         String cpf = scanner.nextLine();
-        //motoristas.removeIf(motorista->motorista.getCpf().equals(cpf));
         motoristas.remove(cpf);
     }
 
     public void editaMotorista(){
-        System.out.println("CPF do motorista: ");
+        System.out.println("=== Edita dados de um Motorista ===\n");
+        System.out.print("CPF do motorista: ");
         String cpf = scanner.nextLine();
 
-        System.out.println("O que deseja alterar:\n1) Endereço\n2)Veículo");
+        System.out.println("O que deseja alterar:\n1) Endereço\n2) Veículo");
         int op= scanner.nextInt();
         scanner.nextLine();
 
-        if(op == 1){
+        if(op == 1)
             motoristas.get(cpf).setEndereco();
-            /* for(Motorista motorista: motoristas){
-                if(motorista.getCpf().equals(cpf)){
-                    motorista.setEndereco();
-                }
-            } */
-        }
-
-        if(op == 2){
+        if(op == 2)
             motoristas.get(cpf).setVeiculo();
-            /* for(Motorista motorista: motoristas){
-                if(motorista.getCpf().equals(cpf)){
-                    motorista.setVeiculo();
-                }
-            } */
-        }
     }
 
     public void cadastrarPassageiro(){
-
         System.out.println("=== Cadastrar Passageiro ===\n");
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
 
-        //insereDadosEndereco();
-        System.out.println("\nEndereco");
-        System.out.print("Tipo do Logadouro: ");
-        String tipoLogadouro = scanner.nextLine();
-        System.out.print("Logadouro: ");
-        String logadouro = scanner.nextLine();
-        System.out.print("Nº: ");
-        int numero = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Bairro: ");
-        String bairro = scanner.nextLine();
-        System.out.print("CEP: ");
-        String cep = scanner.nextLine();
-        System.out.print("Cidade: ");
-        String cidade = scanner.nextLine();
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("Pais: ");
-        String pais = scanner.nextLine();
-
-        boolean criadoEnd = false;
-        Endereco endereco = null;
-        while(!criadoEnd){
-
-            try{
-                endereco = new Endereco(tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
-                criadoEnd = true;
-            }
-            catch(IllegalArgumentException e){
-                System.out.println("\nEndereço não aceito.");
-                System.out.println(e.getMessage());
-
-                System.out.println("Digite novamente o tipo de Logadouro: ");
-                tipoLogadouro = scanner.nextLine();
-                //System.out.println("Digite novamente o endereço");
-                //insereDadosEndereco();
-            }
-        }
+        Endereco endereco = lerEnderecoCadastro();
 
         Passageiro passageiro = new Passageiro(nome, cpf, endereco);
         passageiros.put(cpf,passageiro);
+
         System.out.println("\nPassageiro cadastrado com sucesso!");
     }
 
     public void exibirPassageiros(){
-
-        System.out.println("Passageiros Cadastrados");
+        System.out.print("=== Passageiros Cadastrados ===\n");
         for(Passageiro passageiro: passageiros.values()){
             System.out.println(passageiro.getNome() + "\n");
         }
     }
 
     public void exibirPassageiro(){
-
-        System.out.print("\nCPF do Passageiro: ");       
+        System.out.print("=== Exibe Dados de um Passageiro ===");
+        System.out.print("\nCPF do passageiro: ");       
         String cpf = scanner.nextLine();
         System.out.print("\n");
         
         if(passageiros.containsKey(cpf))
             passageiros.get(cpf).exibeDados();
         else
-            System.out.println("Passageiro não cadastrado."); */
-
-        /*  boolean cadastrado = false;
-        for(Passageiro passageiro: passageiros){
-            if(passageiro.getCpf().equals(cpf)){
-                passageiro.exibeDados();
-                cadastrado = true;
-                break;
-            }
-        }
-        if(!cadastrado)
-            System.out.println("Passageiro não cadastrado."); */
+            System.out.println("Passageiro não cadastrado.");
     }
 
     public void removePassageiro(){
+        System.out.println("=== Remover Passageiro ===\n");
         System.out.println("CPF do Passageiro: ");
         String cpf = scanner.nextLine();
         passageiros.remove(cpf);
-        //passageiros.removeIf(passageiros->passageiros.getCpf().equals(cpf));
     }
 
     public void editaPassageiro(){
-
-        System.out.println("CPF do Passageiro: ");
+        System.out.println("=== Edita dados de um Passageiro ===\n");
+        System.out.print("CPF do Passageiro: ");
         String cpf = scanner.nextLine();
 
         passageiros.get(cpf).setEndereco();
-        /* for(Passageiro passageiro: passageiros){
-                if(passageiro.getCpf().equals(cpf)){
-                    passageiro.setEndereco();
-                }
-        } */
     }
 
     public Endereco insereEnderecoViagem(String tipo){
@@ -320,32 +215,44 @@ public class DadosSistema {
 
     public void cadastraCarona(){
 
-        System.out.print("=== Cadastrar Carona ===");
-        System.out.print("\nCPF do passageiro: ");
+        System.out.print("=== Cadastrar Carona ===\n");
+        System.out.print("CPF do passageiro: ");
         String cpfPassageiro = scanner.nextLine();
 
-        /* for(Carona carona: caronasAgendadas.values()){
-            if(carona.getCpfPassageiro().equals(cpfPassageiro))
-                if()
-        }
- */
         for(Carona carona: caronaAndamento.values()){
             if(carona.getCpfPassageiro().equals(cpfPassageiro)){
-                System.out.println("Erro: passageiro já esta em carona.");
-                break;
+                System.out.println(carona.getNomePassageiro() + " já esta em carona.");
+                return;
             }
         }
 
         Endereco origem = insereEnderecoViagem("\nOrigem da Viagem");
         LocalDateTime inicio = LocalDateTime.now();
         Endereco destino = insereEnderecoViagem("\nDestino da Viagem");
+        Random random = new Random();
+        int duracao = random.nextInt(2)+1;
+        LocalDateTime fim = inicio.plusHours(duracao);
+
+        for(Carona carona: caronasAgendadas.values()){
+            if(carona.getCpfPassageiro().equals(cpfPassageiro)){
+                if(inicio.isBefore(carona.getFim()) && fim.isAfter(carona.getInicio())){
+                    System.out.println(carona.getNomePassageiro() + " tem conflito de viagens no mesmo intervalo de tempo.");
+                    return;
+                }
+            }
+
+        }
         
-        String cpfMotorista;        
+        String cpfMotorista = null;        
         for(Motorista motorista: motoristas.values()){
             if(motorista.getStatus()){
                 cpfMotorista = motorista.getCpf();
                 break;
             }
+        }
+        if(cpfMotorista == null){
+            System.out.println("Nenhum motorista disponível.");
+            return;
         }
         
         Carona carona = new Carona(passageiros.get(cpfPassageiro), motoristas.get(cpfMotorista), origem, destino, inicio, "Em andamento");
@@ -356,8 +263,8 @@ public class DadosSistema {
 
     public void agendaCarona(){
 
-        System.out.print("=== Agendar Carona ===");
-        System.out.print("\nCPF do passageiro: ");
+        System.out.print("=== Agendar Carona ===\n");
+        System.out.print("CPF do passageiro: ");
         String cpfPassageiro = scanner.nextLine();
 
         Endereco origem = insereEnderecoViagem("\nOrigem da Viagem");
@@ -389,7 +296,7 @@ public class DadosSistema {
     }
 
     public void exibeAgendamentosCaronas(){
-
+        System.out.println("=== Caronas Agendadas ===\n");
         for(Carona carona: caronasAgendadas){
             System.out.printf("Carona de %s\n", carona.getNomePassageiro());
             System.out.println("Origem: " + carona.exibeOrigem());
@@ -400,7 +307,8 @@ public class DadosSistema {
     }
 
     public void exibeStatusCarona(){
-        System.out.println("\nCodigo da carona: ");
+        System.out.println("=== Verificar status de uma Carona ===\n");
+        System.out.println("Codigo da carona: ");
         float codigo = scanner.nextFloat();
         if(caronasAgendadas.containsKey(codigo))
             System.out.println("Status da carona: " + caronaAndamento.get(codigo).getStatus());
@@ -412,9 +320,9 @@ public class DadosSistema {
 
     public void exibeCaronasAndamento(){
 
-        System.out.println("=== Caronas em Andamento ===");
+        System.out.println("=== Caronas em Andamento ===\n");
         for(Carona carona: caronaAndamento.values()){
-            System.out.printf("\nCarona de %s\n", carona.getNomePassageiro());
+            System.out.printf("Carona de %s\n", carona.getNomePassageiro());
             System.out.println("Origem: " + carona.exibeOrigem());
             System.out.println("Destino: " + carona.exibeDestino());
             System.out.println("Inicio: " + carona.exibeInicio());
@@ -423,9 +331,9 @@ public class DadosSistema {
     }
 
     public void exibeCaronasFinalizadas(){
-        System.out.print("=== Caronas Finalizadas ===");
+        System.out.print("=== Caronas Finalizadas ===\n");
         for(Carona carona: caronasFinalizadas.values()){
-            System.out.printf("\nCarona de %s\n", carona.getNomePassageiro());
+            System.out.printf("Carona de %s\n", carona.getNomePassageiro());
             System.out.println("Origem: " + carona.exibeOrigem());
             System.out.println("Destino: " + carona.exibeDestino());
             System.out.println("Inicio: " + carona.exibeInicio());

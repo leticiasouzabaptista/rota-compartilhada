@@ -42,5 +42,6 @@ public class Veiculo {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
+        
     }
 }

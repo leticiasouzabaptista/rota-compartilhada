@@ -19,6 +19,7 @@ public class Endereco {
         this.tipoLogadouro = tipoLogadouro;
         this.logadouro = logadouro;
         this.numero = numero;
+        this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
@@ -29,7 +30,7 @@ public class Endereco {
         this(null, logadouro, numero, bairro, cidade, null, null, null);
     }
 
-    public void exibeEndereco(){
+    public void exibeEnderecoCadastrado(){
         System.out.printf("Endereco: %s %s, %d - %s, %s, %s, %s, %s\n", tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
     }
 
@@ -45,6 +46,7 @@ public class Endereco {
         this.tipoLogadouro = tipoLogadouro;
         this.logadouro = logadouro;
         this.numero = numero;
+        this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
         this.cep = cep;
