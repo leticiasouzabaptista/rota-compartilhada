@@ -59,27 +59,33 @@ public class CaronasService {
         return false;
     }
 
-    public Motorista selecionarMotoristaDisponivel(LocalDateTime inicio, LocalDateTime fim) {
+    public Motorista selecionarMotorista(LocalDateTime inicio, LocalDateTime fim) {
 
         List <Motorista> disponiveis = new ArrayList<>();
 
         for(Motorista motorista: motoristaService.getMotoristas().values()){
             if(motorista.estaDisponivel()){
+                boolean conflito = false;
                 for(Carona carona: caronasAgendadas.values()){
-                    if(carona.getMotorista().equals(motorista)){
-                        if(!conflitaHorario(carona.getInicio(), carona.getFim(), inicio, fim));
-                            return null;
+                    if(carona.getMotorista().getCpf().equals(motorista.getCpf())){
+                        if(conflitaHorario(carona.getInicio(), carona.getFim(), inicio, fim)){
+                            conflito = true;
+                            break;
+                        }
                     }
                 }
-                for(Carona carona: caronasAndamento.values()){
-                    if(carona.getMotorista().equals(motorista))
-                        return null;
-                }
-                disponiveis.add(motorista);
+                if(!conflito)
+                    disponiveis.add(motorista);
             }
         }
 
+        if(disponiveis.isEmpty()){
+            return null;
+        }
+
         int indice = random.nextInt(disponiveis.size());
+
+        disponiveis.get(indice);
 
         return disponiveis.get(indice);
     }
@@ -112,7 +118,8 @@ public class CaronasService {
         Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
         Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
 
-        Motorista motorista = selecionarMotoristaDisponivel(inicio, fim);
+        Motorista motorista = selecionarMotorista(inicio, fim);
+        motorista.ocuparMotorista();
         
         Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
         caronasAndamento.put(carona.getCodigo(), carona);
@@ -151,7 +158,7 @@ public class CaronasService {
         int duracao = random.nextInt(2)+1;
         LocalDateTime fim = inicio.plusHours(duracao);
         
-        Motorista motorista = selecionarMotoristaDisponivel(inicio, agora);
+        Motorista motorista = selecionarMotorista(inicio, agora);
         
         Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
         caronasAgendadas.put(carona.getCodigo(), carona);

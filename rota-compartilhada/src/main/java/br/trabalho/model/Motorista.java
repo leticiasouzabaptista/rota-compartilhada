@@ -31,6 +31,14 @@ public class Motorista {
         return nome;
     }
 
+    public void ocuparMotorista(){
+    status = false;
+    }
+
+    public void liberarMotorista(){
+        status = true;
+    }
+
     public boolean estaDisponivel(){
         return status;
     }
