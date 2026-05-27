@@ -1,14 +1,23 @@
 package br.trabalho;
 import java.util.Scanner;
+import br.trabalho.Dados.*;
 
 public class Menu {
 
     private int opcao;
-    private DadosSistema sistema;
+    private GerenciadorMotorista gerenciadorMotorista;
+    private GerenciadorPassageiro gerenciadorPassageiro;
+    private GerenciadorCarona gerenciadorCarona;
 
-    public Menu(DadosSistema sistema){
-        this.sistema = sistema;
+
+
+    public Menu(GerenciadorMotorista gerenciadorMotorista, GerenciadorPassageiro gerenciadorPassageiro, GerenciadorCarona gerenciadorCarona){
+        this.gerenciadorMotorista = gerenciadorMotorista;
+        this.gerenciadorPassageiro = gerenciadorPassageiro;
+        this.gerenciadorCarona = gerenciadorCarona;
     }
+
+
 
     private void exibe(){
 
@@ -28,7 +37,7 @@ public class Menu {
             switch (opcao) {
                 case 1:{
                     System.out.println("\nPara voltar ao menu digite 0.");
-                    sistema.cadastrarMotoritsa();
+                    gerenciadorMotorista.cadastrarMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;

@@ -21,6 +21,9 @@ public class Motorista {
 
         scanner = new Scanner(System.in);
     }
+    public void setDadosdoveiculo(){
+        veiculo.setDadosDoVeiculo();
+    }
 
     public String getCpf(){
         return cpf;
