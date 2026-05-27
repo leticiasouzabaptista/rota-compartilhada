@@ -1,4 +1,4 @@
-package br.trabalho;
+package br.trabalho.model;
 
 public class Veiculo {
 

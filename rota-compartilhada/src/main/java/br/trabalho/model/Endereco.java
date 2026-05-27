@@ -1,4 +1,4 @@
-package br.trabalho;
+package br.trabalho.model;
 
 public class Endereco {
 
@@ -26,8 +26,8 @@ public class Endereco {
         this.pais = pais;
     }
 
-    public Endereco(String cidade, String logadouro, int numero, String bairro){
-        this(null, logadouro, numero, bairro, cidade, null, null, null);
+    public Endereco(String cidade, String tipoLogadouro, String logadouro, int numero, String bairro){
+        this(tipoLogadouro, logadouro, numero, bairro, cidade, null, null, null);
     }
 
     public void exibeEnderecoCadastrado(){
@@ -35,7 +35,7 @@ public class Endereco {
     }
 
     public void exibeEnderecoViagem(String tipo){
-        System.out.printf("Origem: %s %s, %d - %s\n", cidade, logadouro, numero, bairro);
+        System.out.printf("%s: %s %s, %d - %s\n", tipo, cidade, logadouro, numero, bairro);
     }
 
     public void setEndereco(String tipoLogadouro, String logadouro, int numero, String bairro, String cidade, String estado, String cep, String pais){

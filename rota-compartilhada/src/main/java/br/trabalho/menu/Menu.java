@@ -1,12 +1,15 @@
-package br.trabalho;
+package br.trabalho.menu;
 import java.util.Scanner;
+
+import java.util.Scanner;
+import br.trabalho.service.SistemaService;
 
 public class Menu {
 
     private int opcao;
-    private DadosSistema sistema;
+    private SistemaService sistema;
 
-    public Menu(DadosSistema sistema){
+    public Menu(SistemaService sistema){
         this.sistema = sistema;
     }
 
@@ -27,99 +30,107 @@ public class Menu {
 
             switch (opcao) {
                 case 1:{
-                    System.out.println("\nPara voltar ao menu digite 0.");
-                    sistema.cadastrarMotoritsa();
+                    sistema.getMotoristaService().cadastrarMotoritsa();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 2:{
-                    System.out.println("\nPara voltar ao menu digite 0.");
-                    sistema.exibirMotoristas();
-                    //sistema.exibirMotoristas();
+                    sistema.getMotoristaService().exibirMotoristas();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                     
                 case 3:{
-                    sistema.exibirMotorista();
+                    sistema.getMotoristaService().exibirMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 4:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.removeMotorista(); //
+                    sistema.getMotoristaService().removeMotorista();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 5:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.editaMotorista(); //
+                    sistema.getMotoristaService().editaMotorista();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 6:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.cadastrarPassageiro();
+                    sistema.getPassageiroService().cadastrarPassageiro();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 7:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibirPassageiros();
+                    sistema.getPassageiroService().exibirPassageiros();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 8:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibirPassageiro();
+                    sistema.getPassageiroService().exibirPassageiro();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 9:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.removePassageiro();
+                    sistema.getPassageiroService().removePassageiro();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 10:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.editaPassageiro();
+                    sistema.getPassageiroService().editaPassageiro();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 11:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.cadastraCarona();
+                    sistema.getCaronaService().cadastraCarona();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 12:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.agendaCarona();
+                    sistema.getCaronaService().agendaCarona();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 13:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibeAgendamentosCaronas();
+                    sistema.getCaronaService().exibeAgendamentosCaronas();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 14:{
-                    System.out.println("Para voltar ao menu digite 0.");
                     //sistema.
                     break;
                 }
                 case 15:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibeStatusCarona();
+                    sistema.getCaronaService().exibeStatusCarona();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 16:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibeCaronasAndamento();
+                    sistema.getCaronaService().exibeCaronasAndamento();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 17:{
-                    System.out.println("Para voltar ao menu digite 0.");
-                    sistema.exibeCaronasFinalizadas();
+                    sistema.getCaronaService().exibeCaronasFinalizadas();
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                default:{
-                    System.out.println("Opção inválida, digite novamente: ");
                     opcao = scanner.nextInt();
                     break;
                 }
@@ -129,7 +140,6 @@ public class Menu {
             exibe();
             opcao = scanner.nextInt();
             scanner.nextLine();
-            //opcao = scanner.next().charAt(0);
         }
 
         System.out.print("Programa finalizado com sucesso!");

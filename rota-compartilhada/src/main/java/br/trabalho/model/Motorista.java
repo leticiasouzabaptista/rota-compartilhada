@@ -1,4 +1,4 @@
-package br.trabalho;
+package br.trabalho.model;
 
 import java.util.Scanner;
 
@@ -18,7 +18,8 @@ public class Motorista {
         this.cpf = cpf;
         this.endereco = endereco;
         this.veiculo = veiculo;
-
+        
+        status = true;
         scanner = new Scanner(System.in);
     }
 
@@ -30,7 +31,7 @@ public class Motorista {
         return nome;
     }
 
-    public boolean getStatus(){
+    public boolean estaDisponivel(){
         return status;
     }
 
@@ -106,3 +107,4 @@ public class Motorista {
         }   
     }
 }
+
