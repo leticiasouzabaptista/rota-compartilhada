@@ -1,5 +1,4 @@
 package br.trabalho.menu;
-import java.util.Scanner;
 
 import java.util.Scanner;
 import br.trabalho.service.SistemaService;
@@ -8,9 +7,11 @@ public class Menu {
 
     private int opcao;
     private SistemaService sistema;
+    private Scanner scanner;
 
     public Menu(SistemaService sistema){
         this.sistema = sistema;
+        scanner = new Scanner(System.in);
     }
 
     private void exibe(){
@@ -20,7 +21,6 @@ public class Menu {
 
     public void executa(){
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Digite a funcionalidade que deseja acessar: ");
         exibe();
         opcao = scanner.nextInt();

@@ -173,7 +173,7 @@ public class CaronasService {
     public void exibeStatusCarona(){
         System.out.println("=== Verificar status de uma Carona ===\n");
         System.out.println("Codigo da carona: ");
-        float codigo = scanner.nextFloat();
+        int codigo = scanner.nextInt();
         if(caronasAgendadas.containsKey(codigo))
             System.out.println("Status da carona: " + caronasAgendadas.get(codigo).exibeStatus());
         if(caronasAndamento.containsKey(codigo))
