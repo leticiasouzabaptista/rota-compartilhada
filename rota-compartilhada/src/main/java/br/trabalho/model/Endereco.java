@@ -55,54 +55,56 @@ public class Endereco {
 
     public static boolean tipoLogadouroEhValido(String tipoLogadouro){
         
-        switch(tipoLogadouro){
+        String minuscula = tipoLogadouro.toLowerCase();
 
-            case "Rua":
+        switch(minuscula){
+
+            case "rua":
                 return true;
 
-            case "Avenida":
+            case "avenida":
                 return true;
 
-            case "Alameda":
+            case "alameda":
                 return true;
 
-            case "Praça":
+            case "praça":
                 return true;
 
-            case "Travessa":
+            case "travessa":
                 return true;
 
-            case "Rodovia":
+            case "rodovia":
                 return true;
 
-            case "Estrada":
+            case "estrada":
                 return true;
 
-            case "Beco":
+            case "beco":
                 return true;
 
-            case "Balneário":
+            case "balneário":
                 return true;
 
-            case "Bosque":
+            case "bosque":
                 return true;
 
-            case "Cais":
+            case "cais":
                 return true;
 
-            case "Calçada":
+            case "calçada":
                 return true;
 
-            case "Largo":
+            case "largo":
                 return true;
 
-            case "Viaduto":
+            case "viaduto":
                 return true;
 
-            case "Viela":
+            case "viela":
                 return true;
 
-            case "Passarela":
+            case "passarela":
                 return true;
 
             default:
