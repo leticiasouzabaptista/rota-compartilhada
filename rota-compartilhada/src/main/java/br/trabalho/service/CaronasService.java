@@ -11,6 +11,7 @@ import br.trabalho.model.Carona;
 import br.trabalho.model.Endereco;
 import br.trabalho.model.Motorista;
 import br.trabalho.util.*;
+import java.util.Iterator;
 
 public class CaronasService {
 
@@ -97,13 +98,14 @@ public class CaronasService {
         String cpfPassageiro = scanner.nextLine();
         if(cpfPassageiro.equals("0"))
             return;
+
         if(!passageiroService.passageiroExiste(cpfPassageiro)){
             System.out.println("Passageiro não cadastrado.");
             return;
         }
 
         if(!passageiroEstaEmCarona(cpfPassageiro)){
-            System.out.println(passageiroService.buscPassageiro(cpfPassageiro).getNome() + " ja esta em Carona");
+            System.out.println(passageiroService.buscPassageiro(cpfPassageiro).getNome() + " ja esta em Carona.");
         }
 
         LocalDateTime inicio = LocalDateTime.now();
@@ -115,15 +117,27 @@ public class CaronasService {
             return;
         }
 
-        Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
-        Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
-
         Motorista motorista = selecionarMotorista(inicio, fim);
         motorista.ocuparMotorista();
-        
-        Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
-        caronasAndamento.put(carona.getCodigo(), carona);
-        passageiroService.buscPassageiro(cpfPassageiro).ocupaPassageiro();
+
+        Carona carona = null;
+        while(true){
+            try{
+                Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
+                Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
+                
+                carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
+                caronasAndamento.put(carona.getCodigo(), carona);
+                passageiroService.buscPassageiro(cpfPassageiro).ocupaPassageiro();
+
+                break;
+            }
+            catch(IllegalArgumentException e){
+                System.out.println("\nCarona não aceita.");
+                System.out.println(e.getMessage());
+                System.out.println("\nTente novamente:\n");
+            }
+        }
 
         System.out.println("\nCodigo da carona: " + carona.getCodigo());
         System.out.println("Carona cadastrada com sucesso!");
@@ -137,7 +151,6 @@ public class CaronasService {
         if(cpfPassageiro.equals("0"))
             return;
 
-        Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
         System.out.print("Dia: ");
         int dia = scanner.nextInt();
         System.out.print("Mes");
@@ -150,25 +163,46 @@ public class CaronasService {
         int minuto = scanner.nextInt();
         LocalDateTime inicio = LocalDateTime.of(ano, mes, dia, hora, minuto);
         LocalDateTime agora = LocalDateTime.now();
+
         if(inicio.isBefore(agora) || inicio.isEqual(agora)){
-            System.out.println("Carona agendada para o momento atual.");
+            System.out.println("Erro: Carona não pode ser agendada para o momento atual.");
             return;
         }
 
-        Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
         int duracao = random.nextInt(2)+1;
         LocalDateTime fim = inicio.plusHours(duracao);
         
         Motorista motorista = selecionarMotorista(inicio, agora);
         
-        Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
-        caronasAgendadas.put(carona.getCodigo(), carona);
+        while(true){
+            try{
+                Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
+                Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
 
+                Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
+                caronasAgendadas.put(carona.getCodigo(), carona);
+
+                break;
+            }
+
+            catch(IllegalArgumentException e){
+                System.out.println("\nCarona não aceita.");
+                System.out.println(e.getMessage());
+                System.out.println("\nTente novamente:\n");
+            }
+        }
+        
         System.out.println("Carona agendada com sucesso!");
     }
 
     public void exibeAgendamentosCaronas(){
         System.out.println("=== Caronas Agendadas ===\n");
+
+        if(caronasAgendadas.isEmpty()){
+            System.out.println("Não existem caronas em andamento.");
+            return;
+        }
+
         for(Carona carona: caronasAgendadas.values()){
             System.out.printf("Carona de %s\n", carona.getPassageiro().getNome());
             carona.exibeOrigem();
@@ -180,19 +214,29 @@ public class CaronasService {
 
     public void exibeStatusCarona(){
         System.out.println("=== Verificar status de uma Carona ===\n");
+
         System.out.println("Codigo da carona: ");
         int codigo = scanner.nextInt();
+
         if(caronasAgendadas.containsKey(codigo))
-            System.out.println("Status da carona: " + caronasAgendadas.get(codigo).exibeStatus());
-        if(caronasAndamento.containsKey(codigo))
-            System.out.println("Status da carona: " + caronasAndamento.get(codigo).exibeStatus());
-        if(caronasFinalizadas.containsKey(codigo))
-            System.out.println("Status da carona: " + caronasFinalizadas.get(codigo).exibeStatus());
+            System.out.println("Carona de " + caronasAgendadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+        else if(caronasAndamento.containsKey(codigo))
+            System.out.println("Carona de " + caronasAndamento.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+        else if(caronasFinalizadas.containsKey(codigo))
+            System.out.println("Carona de " + caronasFinalizadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+        else
+            System.out.println("\nCarona não existe ou código esta errado.");
+
     }
 
     public void exibeCaronasAndamento(){
-
         System.out.println("=== Caronas em Andamento ===\n");
+
+        if(caronasAndamento.isEmpty()){
+            System.out.println("Não existem caronas agendadas.");
+            return;
+        }
+
         for(Carona carona: caronasAndamento.values()){
             System.out.printf("Carona de %s\n", carona.getPassageiro().getNome());
             carona.exibeOrigem();
@@ -204,6 +248,12 @@ public class CaronasService {
 
     public void exibeCaronasFinalizadas(){
         System.out.print("=== Caronas Finalizadas ===\n");
+
+        if(caronasFinalizadas.isEmpty()){
+            System.out.println("Não existem caronas finalizadas.");
+            return;
+        }
+
         for(Carona carona: caronasFinalizadas.values()){
             System.out.printf("Carona de %s\n", carona.getPassageiro().getNome());
             carona.exibeOrigem();
@@ -216,22 +266,32 @@ public class CaronasService {
     public void atualizaSistema(){
         LocalDateTime agora = LocalDateTime.now();
 
-        for(Carona carona: caronasAgendadas.values()){
-            if(carona.getInicio().isEqual(agora) || carona.getInicio().isAfter(agora)){
-                caronasAgendadas.remove(carona.getCodigo()); //pode dar erro
+        Iterator<Carona> itAgendadas = caronasAgendadas.values().iterator();
+        while (itAgendadas.hasNext()) {
+            Carona carona = itAgendadas.next();
+
+            if (carona.getInicio().isEqual(agora) || carona.getInicio().isBefore(agora)){
+                itAgendadas.remove();
+
                 caronasAndamento.put(carona.getCodigo(), carona);
+
                 carona.getMotorista().ocuparMotorista();
                 carona.getPassageiro().ocupaPassageiro();
             }
         }
 
-        for(Carona carona: caronasAndamento.values()){
-            if(carona.getFim().isEqual(agora) || carona.getFim().isBefore(agora)){
-                caronasAndamento.remove(carona.getCodigo()); //pode dar erro
+        Iterator<Carona> itAndamento = caronasAndamento.values().iterator();
+        while (itAndamento.hasNext()) {
+            Carona carona = itAndamento.next();
+
+            if (carona.getFim().isEqual(agora) || carona.getFim().isBefore(agora)) {
+                itAndamento.remove();
+
                 carona.getMotorista().liberarMotorista();
                 carona.getPassageiro().liberaPassageiro();
+
                 caronasFinalizadas.put(carona.getCodigo(), carona);
             }
-        } 
+        }
     }
 }

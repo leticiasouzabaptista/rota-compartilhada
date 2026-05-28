@@ -29,10 +29,12 @@ public class PassageiroService {
 
     public void cadastrarPassageiro(){
         System.out.println("=== Cadastrar Passageiro ===\n");
+
         System.out.print("Nome completo (0 para voltar ao menu): ");
         String nome = scanner.nextLine();
         if(nome.equals("0"))
             return;
+        
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
 
@@ -46,6 +48,12 @@ public class PassageiroService {
 
     public void exibirPassageiros(){
         System.out.print("=== Passageiros Cadastrados ===\n");
+
+        if(passageiros.isEmpty()){
+            System.out.println("Não existem Passageiros cadastrados.");
+            return;
+        }
+
         for(Passageiro passageiro: passageiros.values()){
             System.out.println(passageiro.getNome() + "\n");
         }
@@ -53,6 +61,7 @@ public class PassageiroService {
 
     public void exibirPassageiro(){
         System.out.print("=== Exibe Dados de um Passageiro ===");
+
         System.out.print("\nCPF do passageiro: ");       
         String cpf = scanner.nextLine();
         System.out.print("\n");
@@ -65,19 +74,23 @@ public class PassageiroService {
 
     public void removePassageiro(){
         System.out.println("=== Remover Passageiro ===\n");
+
         System.out.print("CPF (0 para voltar ao menu): ");
         String cpf = scanner.nextLine();
         if(cpf.equals("0"))
             return;
+
         passageiros.remove(cpf);
     }
 
     public void editaPassageiro(){
         System.out.println("=== Edita dados de um Passageiro ===\n");
+
         System.out.print("CPF (0 para voltar ao menu): ");
         String cpf = scanner.nextLine();
         if(cpf.equals("0"))
             return;
+
         if(!passageiros.containsKey(cpf)){
             System.out.println("Passageiro não Cadastrado.");
             return;

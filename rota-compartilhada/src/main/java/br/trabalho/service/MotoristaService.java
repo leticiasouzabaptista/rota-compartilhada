@@ -31,7 +31,6 @@ public class MotoristaService {
     }
 
     public void cadastrarMotoritsa(){
-        
         System.out.println("\n=== Cadastro de Motorista ===\n");
 
         System.out.print("Nome completo: (0 para voltar ao menu): ");
@@ -79,6 +78,7 @@ public class MotoristaService {
 
      public void exibirMotorista(){
         System.out.println("=== Exibe Dados de um Motorista ===");
+        
         System.out.print("\nCPF do motorista: ");       
         String cpf = scanner.nextLine();
         System.out.print("\n");
@@ -91,6 +91,12 @@ public class MotoristaService {
 
     public void exibirMotoristas(){
         System.out.println("\n=== Motoristas Cadastrados ===");
+
+        if(motoristas.isEmpty()){
+            System.out.println("Não existem Motoristas cadastrados.");
+            return;
+        }
+
         for(Motorista motorista: motoristas.values()){
             System.out.println(motorista.getNome());
         }
@@ -98,15 +104,18 @@ public class MotoristaService {
 
     public void removeMotorista(){
         System.out.println("=== Remover Motorista ===");
+
         System.out.print("CPF (0 para voltar ao menu): ");
         String cpf = scanner.nextLine();
         if(cpf.equals("0"))
             return;
+
         motoristas.remove(cpf);
     }
 
     public void editaMotorista(){
         System.out.println("=== Edita dados de um Motorista ===\n");
+
         System.out.print("CPF (0 para voltar ao menu): ");
         String cpf = scanner.nextLine();
         if(cpf.equals("0"))

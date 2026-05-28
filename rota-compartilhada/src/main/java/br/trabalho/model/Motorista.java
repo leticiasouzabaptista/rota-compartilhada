@@ -46,6 +46,7 @@ public class Motorista {
     public void exibeDados(){
         System.out.printf("Nome: %s\n", nome);
         System.out.printf("Cpf: %s\n", cpf);
+        System.out.printf("Status: %b\n", status);
         endereco.exibeEnderecoCadastrado();
         veiculo.exibeVeiculo();
     }
