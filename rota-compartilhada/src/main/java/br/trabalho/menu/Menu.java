@@ -30,12 +30,14 @@ public class Menu {
 
             switch (opcao) {
                 case 1:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getMotoristaService().cadastrarMotoritsa();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 2:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getMotoristaService().exibirMotoristas();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
@@ -43,88 +45,106 @@ public class Menu {
                 }
                     
                 case 3:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getMotoristaService().exibirMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 4:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getMotoristaService().removeMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 5:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getMotoristaService().editaMotorista();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 6:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getPassageiroService().cadastrarPassageiro();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 7:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getPassageiroService().exibirPassageiros();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 8:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getPassageiroService().exibirPassageiro();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 9:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getPassageiroService().removePassageiro();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 10:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getPassageiroService().editaPassageiro();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 11:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().cadastraCarona();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 12:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().agendaCarona();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 13:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().exibeAgendamentosCaronas();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 14:{
-                    //sistema.
+                    sistema.getCaronaService().atualizaSistema();
+                    sistema.getCaronaService().atualizaSistema();
+                    System.out.println("\nSistema atualizado com sucesso!");
+                    System.out.println("\nPressione ENTER para continuar.");
+                    scanner.nextLine();
                     break;
                 }
                 case 15:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().exibeStatusCarona();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 16:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().exibeCaronasAndamento();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();
                     break;
                 }
                 case 17:{
+                    sistema.getCaronaService().atualizaSistema();
                     sistema.getCaronaService().exibeCaronasFinalizadas();
                     System.out.println("\nPressione ENTER para continuar.");
                     scanner.nextLine();

@@ -7,7 +7,7 @@ public class Passageiro {
     private String nome;
     private String cpf;
     private Endereco endereco;
-    private String status;
+    private boolean status;
 
     private Scanner scanner;
 
@@ -16,7 +16,7 @@ public class Passageiro {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
-        status = "Não esta em carona";
+        status = false;
 
         //em carona
         //não esta em carona
@@ -32,8 +32,19 @@ public class Passageiro {
         return cpf;
     }
 
-    public String exibeStatus(){
-        return status;
+    public void exibeStatus(){
+        if(status)
+            System.out.println("Passageiro esta em carona.");
+        else
+            System.out.println("Passageiro não esta em carona");
+    }
+
+    public void ocupaPassageiro(){
+        status = false;
+    }
+
+    public void liberaPassageiro(){
+        status = true;
     }
 
     public void exibeDados(){

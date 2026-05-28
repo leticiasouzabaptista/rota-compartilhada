@@ -123,6 +123,7 @@ public class CaronasService {
         
         Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
         caronasAndamento.put(carona.getCodigo(), carona);
+        passageiroService.buscPassageiro(cpfPassageiro).ocupaPassageiro();
 
         System.out.println("\nCodigo da carona: " + carona.getCodigo());
         System.out.println("Carona cadastrada com sucesso!");
@@ -210,5 +211,27 @@ public class CaronasService {
             System.out.println("Inicio: " + carona.exibeInicio());
             System.out.println("Previsão de encerramento: " + carona.exibeFim() + "\n");
         }
+    }
+
+    public void atualizaSistema(){
+        LocalDateTime agora = LocalDateTime.now();
+
+        for(Carona carona: caronasAgendadas.values()){
+            if(carona.getInicio().isEqual(agora) || carona.getInicio().isAfter(agora)){
+                caronasAgendadas.remove(carona.getCodigo()); //pode dar erro
+                caronasAndamento.put(carona.getCodigo(), carona);
+                carona.getMotorista().ocuparMotorista();
+                carona.getPassageiro().ocupaPassageiro();
+            }
+        }
+
+        for(Carona carona: caronasAndamento.values()){
+            if(carona.getFim().isEqual(agora) || carona.getFim().isBefore(agora)){
+                caronasAndamento.remove(carona.getCodigo()); //pode dar erro
+                carona.getMotorista().liberarMotorista();
+                carona.getPassageiro().liberaPassageiro();
+                caronasFinalizadas.put(carona.getCodigo(), carona);
+            }
+        } 
     }
 }
