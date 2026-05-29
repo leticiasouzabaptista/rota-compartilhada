@@ -50,7 +50,14 @@ public class Passageiro {
     public void exibeDados(){
         System.out.printf("Nome: %s\n", nome);
         System.out.printf("Cpf: %s\n", cpf);
-        System.out.println("Status do passageiro: " + status);
+
+        String disponivel;
+        if(status)
+            disponivel = "Não esta em carona.";
+        else
+            disponivel = "Esta em carona";
+
+        System.out.println("Status do passageiro: " + disponivel);
         endereco.exibeEnderecoCadastrado();
     }
 
