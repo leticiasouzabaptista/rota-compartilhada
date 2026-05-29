@@ -145,8 +145,8 @@ public class CaronasService {
 
     public void agendaCarona(){
 
-        System.out.print("=== Agendar Carona ===\n");
-        System.out.print("CPF do passageiro (0 para voltar ao menu): ");
+        System.out.print("\n=== Agendar Carona ===\n");
+        System.out.print("\nCPF do passageiro (0 para voltar ao menu): ");
         String cpfPassageiro = scanner.nextLine();
         if(cpfPassageiro.equals("0"))
             return;
@@ -174,12 +174,13 @@ public class CaronasService {
         
         Motorista motorista = selecionarMotorista(inicio, agora);
         
+        Carona carona = null;
         while(true){
             try{
                 Endereco origem = leitura.insereEnderecoViagem("\nOrigem da Viagem");
                 Endereco destino = leitura.insereEnderecoViagem("\nDestino da Viagem");
 
-                Carona carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
+                carona = new Carona(passageiroService.buscPassageiro(cpfPassageiro), motorista, origem, destino, inicio, fim, duracao, "Em andamento");
                 caronasAgendadas.put(carona.getCodigo(), carona);
 
                 break;
@@ -191,7 +192,8 @@ public class CaronasService {
                 System.out.println("\nTente novamente:\n");
             }
         }
-        
+
+        System.out.println("Codigo da carona: " + carona.getCodigo());
         System.out.println("Carona agendada com sucesso!");
     }
 
