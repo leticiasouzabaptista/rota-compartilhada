@@ -28,7 +28,7 @@ public class PassageiroService {
     }
 
     public void cadastrarPassageiro(){
-        System.out.println("=== Cadastrar Passageiro ===\n");
+        System.out.println("\n=== Cadastrar Passageiro ===\n");
 
         System.out.print("Nome completo (0 para voltar ao menu): ");
         String nome = scanner.nextLine();
@@ -81,6 +81,8 @@ public class PassageiroService {
             return;
 
         passageiros.remove(cpf);
+
+        System.out.println("Passageiro removido com sucesso!");
     }
 
     public void editaPassageiro(){
