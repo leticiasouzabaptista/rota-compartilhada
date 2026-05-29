@@ -30,12 +30,12 @@ public class Endereco {
         this(tipoLogadouro, logadouro, numero, bairro, cidade, null, null, null);
     }
 
-    public void exibeEnderecoCadastrado(){
-        System.out.printf("Endereco: %s %s, %d - %s, %s, %s, %s, %s\n", tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
+    public void exibeEnderecoCadastrado() {
+        System.out.printf("%s %s, %d, %s, %s - %s, CEP %s, %s\n", tipoLogadouro, logadouro, numero, bairro, cidade, estado, cep, pais);
     }
 
     public void exibeEnderecoViagem(String tipo){
-        System.out.printf("%s: %s %s, %d - %s\n", tipo, cidade, logadouro, numero, bairro);
+        System.out.printf("%s: %s %s, %d, %s - %s\n", tipo, tipoLogadouro, logadouro,numero, bairro, cidade);
     }
 
     public void setEndereco(String tipoLogadouro, String logadouro, int numero, String bairro, String cidade, String estado, String cep, String pais){
