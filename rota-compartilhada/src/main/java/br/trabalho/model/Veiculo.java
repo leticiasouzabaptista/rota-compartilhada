@@ -7,9 +7,10 @@ public class Veiculo {
     private String chassi;
     private int anoFabricacao;
     private String cor;
+    private String carroNome;
     public static final int LIMITE_ANO_FABRICACAO = 2016;
 
-    public Veiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao){
+    public Veiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao, String carroNome){
 
         if(!anoEhValido(anoFabricacao))
             throw new IllegalArgumentException("Ano de fabricação não aceito.");
@@ -19,6 +20,7 @@ public class Veiculo {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
+        this.carroNome = carroNome;
     }
 
     public boolean anoEhValido(int anoFabricacao){
@@ -29,10 +31,10 @@ public class Veiculo {
     }
 
     public void exibeVeiculo(){
-        System.out.printf("Veiculo: %s, %s, %s, %s, %d\n", modelo, placa, chassi, cor, anoFabricacao);
+        System.out.printf("Veiculo: %s, %s, %s, %s, %s, %d\n", carroNome, modelo, placa, chassi, cor, anoFabricacao);
     }
 
-    public void setVeiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao){
+    public void setVeiculo(String modelo, String placa, String chassi, String cor, int anoFabricacao, String carroNome){
 
         if(!anoEhValido(anoFabricacao))
             throw new IllegalArgumentException("Ano de fabricação não aceito.");
@@ -42,6 +44,7 @@ public class Veiculo {
         this.placa = placa;
         this.chassi = chassi;
         this.cor = cor;
+        this.carroNome = carroNome;
         
     }
 }

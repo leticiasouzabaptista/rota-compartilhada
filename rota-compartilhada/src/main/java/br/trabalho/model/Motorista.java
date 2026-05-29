@@ -46,7 +46,14 @@ public class Motorista {
     public void exibeDados(){
         System.out.printf("Nome: %s\n", nome);
         System.out.printf("Cpf: %s\n", cpf);
-        System.out.printf("Status: %b\n", status);
+
+        String disponivel;
+        if(status)
+            disponivel = "Disponivel";
+        else
+            disponivel = "Não disponível.";
+
+        System.out.printf("Status: %s\n", disponivel);
         endereco.exibeEnderecoCadastrado();
         veiculo.exibeVeiculo();
     }
@@ -104,7 +111,9 @@ public class Motorista {
                 scanner.nextLine();
                 System.out.print("Cor: ");
                 String cor = scanner.nextLine();
-                veiculo.setVeiculo(modelo, placa, chassi, cor, anoFabricacao);
+                System.out.print("Nome do Carro: ");
+                String carroNome = scanner.nextLine();
+                veiculo.setVeiculo(modelo, placa, chassi, cor, anoFabricacao, carroNome);
                 System.out.println("Veículo alterado com sucesso!");
                 alteracaoValida = true;
             }

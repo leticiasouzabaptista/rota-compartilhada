@@ -215,15 +215,15 @@ public class CaronasService {
     public void exibeStatusCarona(){
         System.out.println("=== Verificar status de uma Carona ===\n");
 
-        System.out.println("Codigo da carona: ");
+        System.out.print("Codigo da carona: ");
         int codigo = scanner.nextInt();
 
         if(caronasAgendadas.containsKey(codigo))
-            System.out.println("Carona de " + caronasAgendadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+            System.out.println("\nCarona de " + caronasAgendadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
         else if(caronasAndamento.containsKey(codigo))
-            System.out.println("Carona de " + caronasAndamento.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+            System.out.println("\nCarona de " + caronasAndamento.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAndamento.get(codigo).exibeStatus() + "\n");
         else if(caronasFinalizadas.containsKey(codigo))
-            System.out.println("Carona de " + caronasFinalizadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasAgendadas.get(codigo).exibeStatus() + "\n");
+            System.out.println("\nCarona de " + caronasFinalizadas.get(codigo).getPassageiro().getNome() + "\nStatus da carona: " + caronasFinalizadas.get(codigo).exibeStatus() + "\n");
         else
             System.out.println("\nCarona não existe ou código esta errado.");
 

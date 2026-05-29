@@ -110,28 +110,5 @@ public class Endereco {
             default:
                 return false; 
         }
-       
-         /*  switch(tipoLogadouro){
-            case "Rua" -> return true;
-            case "Avenida" -> return true;
-            case "Alameda" -> return true;
-            case "Praça" -> return true;
-            case "Travessa" -> return true;
-            case "Rodovia" -> return true;
-            case "Estrada" -> return true;
-            case "Beco" -> return true;
-            case "Balneário" -> return true;
-            case "Bosque" -> return true;
-            case "Cais" -> return true;
-            case "Calçada" -> return true;
-            case "Largo" -> return true;
-            case "Viaduto" -> return true;
-            case "Viela" -> return true;
-            case "Passarela" -> return true;
-            default -> {
-                    System.out.prinln("Logadouro não permitido.");
-                    return false;
-                }  
-            }*/
     }
 }

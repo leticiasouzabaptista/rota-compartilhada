@@ -30,6 +30,16 @@ public class MotoristaService {
         return motoristas;
     }
 
+    public void cadastrarMotoritsaCsv(String nome, String cpf, String tipoLogadouro, String logadouro,int numero, String bairro, String cidade, String estado, String pais, String cep, String carroNome, String modelo, String placa, String chassi, int ano, String  cor, boolean disponivel){
+
+        Endereco endereco = new Endereco(tipoLogadouro, logadouro, numero, bairro, cidade, estado, pais, cep);
+
+        Veiculo veiculo = new Veiculo(modelo, placa, chassi, cor, ano, carroNome);
+        
+        Motorista motorista = new Motorista(nome, cpf, endereco, veiculo);
+        motoristas.put(cpf,motorista);
+    }
+
     public void cadastrarMotoritsa(){
         System.out.println("\n=== Cadastro de Motorista ===\n");
 
@@ -60,7 +70,9 @@ public class MotoristaService {
                 scanner.nextLine();
                 System.out.print("Cor: ");
                 String cor = scanner.nextLine();
-                veiculo = new Veiculo(modelo, placa, chassi, cor,  anoFabricacao);
+                System.out.print("Nome do carro: ");
+                String nomeCarro = scanner.nextLine();
+                veiculo = new Veiculo(modelo, placa, chassi, cor,  anoFabricacao, nomeCarro);
                 veiculoEhValido = true;
             }
             catch(IllegalArgumentException e){
@@ -111,17 +123,19 @@ public class MotoristaService {
             return;
 
         motoristas.remove(cpf);
+
+        System.out.println("Motorista removido com sucesso!");
     }
 
     public void editaMotorista(){
-        System.out.println("=== Edita dados de um Motorista ===\n");
+        System.out.println("\n=== Edita dados de um Motorista ===\n");
 
         System.out.print("CPF (0 para voltar ao menu): ");
         String cpf = scanner.nextLine();
         if(cpf.equals("0"))
             return;
 
-        System.out.println("O que deseja alterar:\n1) Endereço\n2) Veículo");
+        System.out.println("\nO que deseja alterar:\n1) Endereço\n2) Veículo");
         int op= scanner.nextInt();
         scanner.nextLine();
 
